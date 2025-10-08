@@ -248,7 +248,7 @@ async def get_files(pick_type: str) -> APIResponse:
     }
 
     if pick_type not in pick_preset:
-        return APIResponseFail(message="Invalid request")
+        return APIResponseFail(message="Invalid request", data=None)
 
     preset_info = pick_preset[pick_type]
     path = Path(preset_info["path"])
@@ -294,7 +294,7 @@ async def terminate_task(task_id: str):
 @router.get("/graphic_cards")
 async def list_avaliable_cards() -> APIResponse:
     if not printable_devices:
-        return APIResponse(status="pending", message="Devices not ready.")
+        return APIResponse(status="pending", message="Devices not ready.", data=None)
     return APIResponseSuccess(message="Success", data={"cards": printable_devices})
 
 
