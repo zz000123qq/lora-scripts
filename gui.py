@@ -102,7 +102,12 @@ def launch(args):
     os.environ["MIKAZUKI_TENSORBOARD_HOST"] = args.tensorboard_host
     os.environ["MIKAZUKI_TENSORBOARD_PORT"] = str(args.tensorboard_port)
     os.environ["MIKAZUKI_DEV"] = "1" if args.dev else "0"
-
+    # ----------------------------------------------------------------------------------
+    # 【新增代码】: 启用 PyTorch Dynamo 加速
+    # 设置 accelerate 使用 inductor 后端，这会显著提升训练速度
+    os.environ["ACCELERATE_DYNAMO_BACKEND"] = "inductor"
+    log.info("Enabled PyTorch Dynamo optimization with backend: inductor")
+    # ----------------------------------------------------------------------------------
     if args.listen:
         args.host = "0.0.0.0"
         args.tensorboard_host = "0.0.0.0"

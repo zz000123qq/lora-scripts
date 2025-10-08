@@ -4,6 +4,7 @@ import json
 import os
 import re
 import random
+from glob import glob
 from datetime import datetime
 from pathlib import Path
 from typing import Tuple, Optional, List, Dict, Any
@@ -287,7 +288,7 @@ async def get_tasks() -> APIResponse:
 @router.get("/tasks/terminate/{task_id}", response_model_exclude_none=True)
 async def terminate_task(task_id: str):
     tm.terminate_task(task_id)
-    return APIResponseSuccess(message=f"Termination signal sent to task {task_id}.")
+    return APIResponseSuccess(message=f"Termination signal sent to task {task_id}.", data=None)
 
 
 @router.get("/graphic_cards")
