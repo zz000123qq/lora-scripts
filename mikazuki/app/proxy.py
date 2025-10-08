@@ -23,8 +23,7 @@ def reverse_proxy_maker(url_type: str, full_path: bool = False):
         host = os.environ.get("MIKAZUKI_TAGEDITOR_HOST", "127.0.0.1")
         port = os.environ.get("MIKAZUKI_TAGEDITOR_PORT", "28001")
 
-    client = httpx.AsyncClient(base_url=f"http://{host}:{port}/", proxies={}, trust_env=False, timeout=360)
-
+    client = httpx.AsyncClient(base_url=f"http://{host}:{port}/", trust_env=False, timeout=360)
     async def _reverse_proxy(request: Request):
         if full_path:
             url = httpx.URL(path=request.url.path, query=request.url.query.encode("utf-8"))
